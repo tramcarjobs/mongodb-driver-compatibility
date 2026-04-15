@@ -1,0 +1,2 @@
+packaging==26.1
+PyYAML==6.0.3
