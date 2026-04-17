@@ -12,7 +12,7 @@ def check_compatibility(driver_v, server_v, yaml_file):
         target_driver_v = Version(driver_v)
 
         for entry in data['compatibility']:
-            raw_range = entry['driver_version'].replace(" ", ",")
+            raw_range = entry['driver_version']
 
             try:
                 spec = SpecifierSet(raw_range)
@@ -36,9 +36,9 @@ def check_compatibility(driver_v, server_v, yaml_file):
 
 
 if __name__ == "__main__":
-    if len(sys.argv) < 3:
-        print("Usage: python check.py <driver_version> <server_version>")
+    if len(sys.argv) < 4:
+        print("Usage: python check.py <driver_name> <driver_version> <server_version>")
         sys.exit(1)
 
-    res = check_compatibility(sys.argv[1], sys.argv[2], 'nodejs.yaml')
+    res = check_compatibility(sys.argv[2], sys.argv[3], f"{sys.argv[1]}.yaml")
     print(res)
