@@ -12,6 +12,7 @@ DRIVER_REPOS = [
     "mongo-java-driver",
     "mongo-python-driver",
     "mongo-ruby-driver",
+    "mongo-rust-driver",
     "node-mongodb-native",
 ]
 
@@ -39,10 +40,17 @@ for repo in DRIVER_REPOS:
             "versions": {}
         }
 
+    # GitHub returns releases newest-first. We filter to only unseen releases, then
+    # reverse so we process oldest-first. This lets us advance the checkpoint
+    # incrementally -- if parsing fails mid-way, we break and retry from there on
+    # the next run rather than skipping the failed entry.
     new_releases = [r for r in resp.json() if r["published_at"] > data["last_published_at"]]
 
     for r in reversed(new_releases):
         try:
+            if r["prerelease"] == True:
+                continue
+
             if repo == "mongo-java-driver":
                 tmp_version = r["tag_name"].lstrip("r")
             else:
