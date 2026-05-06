@@ -8,6 +8,7 @@ ORG = "mongodb"
 DRIVER_REPOS = [
     "mongo-csharp-driver",
     "mongo-c-driver",
+    "mongo-cxx-driver",
     "mongo-go-driver",
     "mongo-java-driver",
     "mongo-python-driver",
@@ -51,7 +52,7 @@ for repo in DRIVER_REPOS:
             if r["prerelease"] == True:
                 continue
 
-            if repo == "mongo-java-driver":
+            if repo in ("mongo-java-driver", "mongo-cxx-driver"):
                 tmp_version = r["tag_name"].lstrip("r")
             else:
                 tmp_version = r["tag_name"]
