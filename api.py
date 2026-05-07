@@ -24,8 +24,8 @@ def compat(driver, driver_version, server_version):
     data = driver_data.get(driver)
 
     if data is None:
-        return "<p>unknown driver</p>", 404
+        return { "status": "unknown driver" }, 404
 
     res = check_compatibility(data, driver_version, server_version)
 
-    return f"<p>{res}</p>"
+    return { "status": res }
