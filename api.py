@@ -12,6 +12,7 @@ try:
         "go": load_file("go"),
         "java": load_file("java"),
         "nodejs": load_file("nodejs"),
+        "php": load_file("php"),
         "pymongo": load_file("pymongo"),
         "ruby": load_file("ruby"),
         "rust": load_file("rust"),

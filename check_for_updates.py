@@ -11,6 +11,7 @@ DRIVER_REPOS = [
     "mongo-cxx-driver",
     "mongo-go-driver",
     "mongo-java-driver",
+    "mongo-php-library",
     "mongo-python-driver",
     "mongo-ruby-driver",
     "mongo-rust-driver",
