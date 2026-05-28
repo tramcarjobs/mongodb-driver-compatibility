@@ -49,18 +49,19 @@ def compat(driver, driver_version, server_version):
     return { "status": res }
 
 def build_rss(releases):
-    rss = Element("rss", version="2.0")
+    rss = Element("rss", version="2.0", attrib={"xmlns:atom": "http://www.w3.org/2005/Atom"})
     channel = SubElement(rss, "channel")
 
     SubElement(channel, "title").text = "MongoDB Driver Releases"
     SubElement(channel, "link").text = "https://github.com/tramcarjobs/mongodb-driver-compatibility"
     SubElement(channel, "description").text = "New MongoDB driver releases"
+    SubElement(channel, "atom:link", attrib={"href": "https://github.com/tramcarjobs/mongodb-driver-compatibility/rss.xml", "rel": "self", "type": "application/rss+xml"})
 
     for release in releases:
         item = SubElement(channel, "item")
         SubElement(item, "title").text = f"{release['name']} {release['version']}"
         SubElement(item, "pubDate").text = release["published_at"].strftime("%a, %d %b %Y %H:%M:%S +0000")
-        SubElement(item, "guid").text = f"{release['name']}-{release['version']}"
+        SubElement(item, "guid", isPermaLink="false").text = f"{release['name']}-{release['version']}"
 
     xml = parseString(tostring(rss)).toprettyxml(indent="  ")
     return xml
